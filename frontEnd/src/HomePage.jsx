@@ -1,8 +1,10 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const HomePage = () => {
     const [city, setCity] = useState();
+    const navigate = useNavigate();
     async function getUserCity() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -36,6 +38,7 @@ const HomePage = () => {
     }
     useEffect(() => {
         getUserCity();
+        fetchData();
     }, []);
     function handleSearchSubmit(e) {
         e.preventDefault();
@@ -43,11 +46,38 @@ const HomePage = () => {
         if (searchQuery === "" || searchQuery.trim() === "") return; //Prevents empty string queries
         fetchData(searchQuery);
     }
-    function fetchData(searchQuery) {
+    async function fetchData(searchQuery) {
         //  redirect it to the page where there is fetched data and filter it.
+        try {
+            const response = await fetch("http://localhost:3030/food", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                credentials: "include",
+            });
+            console.log(response);
+            if (response.status !== 200) {
+                navigate("/login");
+            }
+        }
+        catch (errors) {
+            console.log("Error:", errors);
+        }
     }
+    // useEffect(() => {
+    //     try {
+    //         async ()=> {
+    //             const response = await fetchData();
+    //             console.log(response);
+    //         }
+    //     }
+    //     catch (error) {
+    //         console.log("Error:", error);
+    //     }
+    // }, []);
     return (
-        <div className='flex flex-col justify-start border border-white w-full h-full'>
+        <div className='flex flex-col justify-start border border-white w-full h-[100vh] overflow-auto'>
             <nav className='w-full flex gap-2 justify-between px-2'>
                 Food Club
                 <div className='flex gap-2 justify-end'>

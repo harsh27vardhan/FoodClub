@@ -6,10 +6,11 @@ const {
   updateFoodItem,
   deleteFoodItem,
 } = require("../controllers/food");
+const { checkAuth } = require("../middlewares/auth");
 
 const router = express.Router();
 
-router.get("/", getFoodItem);
+router.get("/", checkAuth, getFoodItem);
 router.post("/", giveAccess(["ADMIN", "SUPERADMIN"]), addFoodItem);
 router.patch("/:id", giveAccess(["ADMIN", "SUPERADMIN"]), updateFoodItem);
 router.delete("/:id", giveAccess(["ADMIN", "SUPERADMIN"]), deleteFoodItem);

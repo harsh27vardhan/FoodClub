@@ -24,7 +24,7 @@ exports.signUpUser = (req, res) => {
 };
 
 exports.logInUser = async (req, res) => {
-  console.log("Trying...");
+  console.log("Trying to find user...");
   const { username, password } = req.body;
   try {
     await User.findOne({ username, password }).then((user) => {
@@ -48,12 +48,12 @@ exports.logInUser = async (req, res) => {
         })
         .send({
           token,
+          user,
           status: "success",
           message: "User logged in successfully",
-          user,
         });
     });
-  } catch {
+  } catch (err) {
     return res
       .status(401)
       .send({ message: "Invalid username or password", ...err });

@@ -25,11 +25,12 @@ const Signup = () => {
         console.log(response);
         // const {fullname,username,email,password};
     }
+    const [userType, setUserType] = useState(null);
     return (
         <div className="flex h-[100vh] justify-center w-full items-center">
             <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
                 <h2 className="text-2xl font-bold text-center text-gray-700 mb-6">Create a New Account</h2>
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                {userType ? <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     <input
                         type="text"
                         name="fullname"
@@ -72,7 +73,10 @@ const Signup = () => {
                     >
                         Signup
                     </button>
-                </form>
+                </form> : <div>
+                    <button onClick={() => setUserType("USER")}>SignUp as User</button>
+                    <button onClick={() => setUserType("ADMIN")}>SignUp as Resto</button>
+                </div>}
 
             </div>
         </div>

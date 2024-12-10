@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         username: "",
         password: "",
@@ -15,8 +16,19 @@ const Login = () => {
     async function handleSubmit(e) {
         e.preventDefault();
         console.log(formData);
-        // const response = await axios.post("http://localhost:3030/user/login", formData);
-        // console.log(response);
+        try {
+            const response = await axios.post("http://localhost:3030/user/login", formData, {
+                withCredentials: true,
+            });
+            console.log(response);
+            if (response.status === 200) {
+                localStorage.setItem("token", response.data.token);
+                navigate("/");
+            }
+        }
+        catch (error) {
+            console.log(error);
+        }
     }
     return (
         <div className="flex h-[100vh] justify-center w-full items-center">

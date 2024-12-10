@@ -55,6 +55,7 @@ function foodFilteration(food, payload) {
 // };
 
 exports.getFoodItem = (req, res) => {
+  console.log(req.user);
   const { restroId = null } = req.params;
   if (restroId) {
     Food.find({ restroId })
@@ -101,7 +102,7 @@ exports.addFoodItem = (req, res) => {
     price,
     availableOty,
     discount,
-    restroId,
+    // restroId,
   })
     .then((food) => {
       res.status(201).send({
