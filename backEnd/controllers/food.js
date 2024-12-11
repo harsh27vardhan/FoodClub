@@ -56,6 +56,7 @@ function foodFilteration(food, payload) {
 
 exports.getFoodItem = (req, res) => {
   console.log(req.user);
+  res.cookie("user", req.user.role);
   const { restroId = null } = req.params;
   if (restroId) {
     Food.find({ restroId })

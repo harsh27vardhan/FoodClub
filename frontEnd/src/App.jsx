@@ -5,6 +5,7 @@ import HomePage from './HomePage'
 import Signup from './components/auth/Signup'
 import RestroHome from './RestroHome'
 import UserPage from './UserPage'
+import New from './New'
 
 function App() {
   const router = createBrowserRouter([
@@ -27,6 +28,10 @@ function App() {
     {
       path: "/userpage",
       element: <UserPage />,
+    },
+    {
+      path: "/new",
+      element: <New />
     }
   ])
 

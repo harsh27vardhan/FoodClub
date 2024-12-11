@@ -12,6 +12,10 @@ const RestroHome = () => {
     //     // fetch foods by RestroId;
     //     //update foods
     // }, []);
+    function deleteCookie(cookieName) {
+        // Set the cookie with an expiration date in the past
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+    }
     function handleAllFood(e) {
         e.preventDefault();
         // add food wwith the backend api
@@ -33,12 +37,12 @@ const RestroHome = () => {
             <div className='flex flex-col gap-4 px-4 h-[calc(100vh - 36px)] w-full overflow-auto'>
                 <div className='flex w-full justify-between pr-4'>
                     <p className="text-xl font-semibold">Here are your Food Items</p>
-                    <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => setAddFoodItem(true)}>Add new Food Item</button>
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded" onClick={() => setAddFoodItem(true)}>Add new Food Item</button>
                 </div>
                 <div className='flex flex-wrap justify-center gap-4'>
                     {foods.length > 0 && (
                         foods.map((food, index) => (
-                            <ProductCard />
+                            <ProductCard key={"produt-card" + index} />
                         ))
                     )}
                 </div>
@@ -59,6 +63,7 @@ const RestroHome = () => {
                             <input required type="number" placeholder="Available Qualtity" className='p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500' />
                             <input type="text" placeholder="Image link" className='p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500' />
                             <input required type="number" placeholder="Rating" className='p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500' />
+                            <input type="number" placeholder="Discount" className='p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500' />
                             <button type="submit" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md'>Add Food</button>
                         </form>
                     </div>

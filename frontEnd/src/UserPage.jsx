@@ -22,6 +22,10 @@ const UserPage = () => {
         console.log(text);
         // fetch the data of the food according to the text and reedirect it to that page containing that types of food.
     }
+    function deleteCookie(cookieName) {
+        // Set the cookie with an expiration date in the past
+        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+    }
 
     const nowInMilliseconds = Date.now(); // Get milliseconds since the epoch
     const currentDate = new Date(nowInMilliseconds); // Create a Date object from the milliseconds
