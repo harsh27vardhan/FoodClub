@@ -1,21 +1,25 @@
 import React from 'react'
 
-const ProductCard = () => {
+const ProductCard = ({ food, key }) => {
     function handleEditFoodItem() {
         console.log("Edit Food Item");
         // Call the edit food item function from backend using patch request
         //MAintain the states using redux and update the todos so that the restro homepage shows the edited items
     }
     function handleDeleteFoodItem() {
-        console.log("Delete Food Item");
+        console.log("Deleting Food Item");
         // Call the delete food item function from backend using delete request
-        //MAintain the states using redux and update the todos so that the restro homepage shows the deleted items
+        //Maintain the states using redux and update the todos so that the restro homepage shows the deleted items
     }
     return (
-        <div className='flex flex-col gap-2 border bg-white p-8 rounded-lg shadow-lg w-[350px]'>
-            <img src="" alt="Food Image" />
-            <h3>Food Name</h3>
-            <p>Price: $10.99</p>
+        <div className='flex flex-col gap-2 border bg-white p-4 rounded-lg shadow-lg w-[350px]'>
+            <img src={food.image} alt={food.name} />
+            <h3>{food.name}</h3>
+            <p>{food.description}</p>
+            <div className='flex justify-between items-center'>
+                <p>Only ${food.availableQty} left in stock!</p>
+                <p className='text-lg font-bold text-purple-900'>Price: ${food.price}</p>
+            </div>
             <div className='flex justify-end gap-2'>
                 <button onClick={handleEditFoodItem} className='text-blue-600 font-bold'>Edit</button>
                 <p>|</p>

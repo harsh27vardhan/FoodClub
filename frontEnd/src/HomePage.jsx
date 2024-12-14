@@ -137,7 +137,7 @@ const HomePage = () => {
     //         </div>
     //     </div>
     // )
-    return document.cookie.split("user=")[1] === "CUSTOMER" ? (<UserPage />) : (<RestroHome />);
+    return document.cookie.split("user=")[1] === "ADMIN" ? (<RestroHome />) : (<UserPage />);
 }
 
 export default HomePage

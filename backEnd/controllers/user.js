@@ -48,14 +48,19 @@ exports.logInUser = async (req, res) => {
         })
         .send({
           token,
-          user,
+          user, // res.user = user;
           status: "success",
           message: "User logged in successfully",
         });
+      console.log(res.user);
     });
   } catch (err) {
     return res
       .status(401)
       .send({ message: "Invalid username or password", ...err });
   }
+
+  exports.logOutUser = (req, res) => {
+    res.clearCookie("token").send({ message: "User logged out successfully" });
+  };
 };

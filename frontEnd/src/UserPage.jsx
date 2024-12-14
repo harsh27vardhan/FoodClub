@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchIcon from "./assets/search.svg";
 import UserIcon from "./assets/user.svg";
 import AppetizerImg from "./assets/appetizer.webp";
@@ -7,8 +7,12 @@ import FastFoodImg from "./assets/fastfood.jpeg";
 import SaladImg from "./assets/salad.jpeg";
 import DrinkImg from "./assets/drinks.webp";
 import DessertImg from "./assets/desserts.webp";
+import { useNavigate } from "react-router-dom";
+import Header from "./Header";
 
 const UserPage = () => {
+    const [showOptions, setShowOptions] = useState(false);
+    const navigate = useNavigate();
     function handleSearchSubmit(e) {
         e.preventDefault();
         const text = document.querySelector("#userpage-search-input").value;
@@ -22,31 +26,11 @@ const UserPage = () => {
         console.log(text);
         // fetch the data of the food according to the text and reedirect it to that page containing that types of food.
     }
-    function deleteCookie(cookieName) {
-        // Set the cookie with an expiration date in the past
-        document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
-    }
-
-    const nowInMilliseconds = Date.now(); // Get milliseconds since the epoch
-    const currentDate = new Date(nowInMilliseconds); // Create a Date object from the milliseconds
-    const currentHour = currentDate.getHours(); // Extract the hour (0-23)
-    console.log("Current Hour:", currentHour);
-
+    console.log("Complete page re-rendered");
     return (
         <div className="w-full h-[100vh] flex flex-col gap-8">
             <div id="user-head-div" className="flex flex-col gap-8">
-                <div className="flex flex-col gap-0 p-4">
-                    <div className="flex justify-between h-[36px] items-center">
-                        <h3 className="text-3xl font-semibold">Hello User! 👋</h3>
-                        <img
-                            src={UserIcon}
-                            alt=""
-                            className="h-full aspect-square rounded-[50%] bg-white"
-                        />
-                    </div>
-                    <p>It's {currentHour <= 11 ? "Breakfast" : currentHour <= 15 ? "Lunch" : currentHour <= 20 ? "Snacks" : "Dinner"} time!</p>
-                </div>
-
+                <Header />
                 <form
                     onSubmit={handleSearchSubmit}
                     className="flex h-8 gap-2 items-center px-4"
@@ -162,7 +146,6 @@ const UserPage = () => {
                     <li onClick={handleClickToSearch}>Tea</li>
                 </ul>
             </div>
-
         </div>
     );
 };

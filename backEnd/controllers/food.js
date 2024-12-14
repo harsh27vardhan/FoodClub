@@ -1,4 +1,5 @@
 const Food = require("../models/food");
+const { getUser } = require("../services/auth");
 
 function foodFilteration(food, payload) {
   const {
@@ -55,7 +56,8 @@ function foodFilteration(food, payload) {
 // };
 
 exports.getFoodItem = (req, res) => {
-  console.log(req.user);
+  // console.log(req.cookie);
+  // console.log(req.user);
   res.cookie("user", req.user.role);
   const { restroId = null } = req.params;
   if (restroId) {
@@ -70,17 +72,17 @@ exports.getFoodItem = (req, res) => {
   } else {
     Food.find({})
       .then((food) => {
-        const data = foodFilteration(food, req.params);
-        res.send({ status: "success", food: data });
+        // const data = foodFilteration(food, req.params);
+        res.send({ status: "success", food });
       })
       .catch((err) => {
-        res.send({ status: "error", message: err.message });
+        res.send({ status: "error", message: err });
       });
   }
 };
 
 exports.addFoodItem = (req, res) => {
-  console.log(req.user);
+  // console.log(req.user); //undefined
   const {
     name,
     description,
@@ -89,10 +91,11 @@ exports.addFoodItem = (req, res) => {
     isVeg,
     image,
     price,
-    availableOty,
+    availableQty,
     discount,
   } = req.body;
-  const restroId = req.user._id;
+  const restroId = getUser(req.cookies.token)._id;
+  console.log(restroId);
   Food.create({
     name,
     description,
@@ -101,9 +104,9 @@ exports.addFoodItem = (req, res) => {
     isVeg,
     image,
     price,
-    availableOty,
+    availableQty,
     discount,
-    // restroId,
+    restroId,
   })
     .then((food) => {
       res.status(201).send({
@@ -111,12 +114,15 @@ exports.addFoodItem = (req, res) => {
         status: "success",
         message: "Food item created successfully",
       });
+      console.log("Food added");
     })
     .catch((err) => {
       res.status(400).send({
         message: "Food item creation failed",
         ...err,
       });
+      console.log("Food item creation failed");
+      console.log(err);
     });
 };
 

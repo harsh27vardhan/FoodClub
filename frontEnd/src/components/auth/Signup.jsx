@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ const Signup = () => {
         password: "",
         role: "CUSTOMER",
     });
+    const navigate = useNavigate();
 
     function handleChange(e) {
         const { name, value, type, checked } = e.target;
@@ -19,11 +21,17 @@ const Signup = () => {
         e.preventDefault();
         formData.role = userType;
         console.log(formData);
-        // const response = await axios.post(
-        //     "http://localhost:3030/user/signup",
-        //     formData
-        // );
-        // console.log(response);
+        try {
+            const response = await axios.post(
+                "http://localhost:3030/user/signup",
+                formData
+            );
+            console.log(response);
+            navigate("/login");
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
     const [userType, setUserType] = useState(null);
     return (
