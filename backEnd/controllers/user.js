@@ -52,7 +52,8 @@ exports.logInUser = async (req, res) => {
           status: "success",
           message: "User logged in successfully",
         });
-      console.log(res.user);
+      condole.log("Consoling the user....");
+      console.log(res);
     });
   } catch (err) {
     return res

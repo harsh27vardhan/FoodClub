@@ -111,6 +111,7 @@ exports.addFoodItem = (req, res) => {
     .then((food) => {
       res.status(201).send({
         food,
+        id: food._id,
         status: "success",
         message: "Food item created successfully",
       });
@@ -165,7 +166,9 @@ exports.updateFoodItem = (req, res) => {
 };
 
 exports.deleteFoodItem = (req, res) => {
-  Food.findByIdAndDelete(req.params.id)
+  const { id } = req.params;
+  console.log(id);
+  Food.findByIdAndDelete(req.params)
     .then((food) => {
       return res.status(200).send({
         food,

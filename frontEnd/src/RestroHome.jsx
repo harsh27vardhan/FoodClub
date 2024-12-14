@@ -73,8 +73,11 @@ const RestroHome = () => {
             // Call the edit food item function from backend using patch request
             //MAintain the states using redux and update the todos so that the restro homepage shows the edited items
         }
-        function handleDeleteFoodItem() {
+        async function handleDeleteFoodItem() {
             console.log("Deleting Food Item");
+            // console.log(food);
+            const response = await axios.delete(`http//localhost:3030/food/${food._id}`);
+            console.log(response);
             // Call the delete food item function from backend using delete request
             //Maintain the states using redux and update the todos so that the restro homepage shows the deleted items
         }
