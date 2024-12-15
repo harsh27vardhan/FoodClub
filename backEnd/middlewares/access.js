@@ -4,7 +4,7 @@ function giveAccess(roles = []) {
   return (req, res, next) => {
     // const userRole = req.user.role;
     // console.log(req);
-    const userRole = getUser(req.cookies.token);
+    const userRole = getUser(req.cookies.token).role;
     console.log(userRole);
     if (roles.includes(userRole)) {
       console.log("Going to next");

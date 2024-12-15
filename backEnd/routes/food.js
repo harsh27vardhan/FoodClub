@@ -11,6 +11,7 @@ const { checkAuth } = require("../middlewares/auth");
 const router = express.Router();
 
 router.get("/", checkAuth, getFoodItem);
+// router.get("/:restroId", giveAccess(["ADMIN", "SUPERADMIN"]), getFoodItem);
 router.post("/", giveAccess(["ADMIN", "SUPERADMIN"]), addFoodItem);
 router.patch("/:id", giveAccess(["ADMIN", "SUPERADMIN"]), updateFoodItem);
 router.delete("/:id", giveAccess(["ADMIN", "SUPERADMIN"]), deleteFoodItem);

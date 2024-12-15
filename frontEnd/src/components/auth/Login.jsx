@@ -21,6 +21,7 @@ const Login = () => {
                 withCredentials: true,
             });
             console.log(response);
+            localStorage.setItem("_id", response.data.user._id);
             if (response.status === 200) {
                 localStorage.setItem("token", response.data.token);
                 navigate("/");

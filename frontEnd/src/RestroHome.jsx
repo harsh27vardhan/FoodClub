@@ -26,7 +26,8 @@ const RestroHome = () => {
     const navigate = useNavigate();
     async function getFood() {
         try {
-            const response = await axios.get("http://localhost:3030/food", {
+            console.log(localStorage.getItem("_id"));
+            const response = await axios.get(`http://localhost:3030/food`, {
                 withCredentials: true, /// Have to include credentials as we're checking for the cookies in the backend..
             });
             console.log(response);
@@ -76,8 +77,13 @@ const RestroHome = () => {
         async function handleDeleteFoodItem() {
             console.log("Deleting Food Item");
             // console.log(food);
-            const response = await axios.delete(`http//localhost:3030/food/${food._id}`);
+            const response = await axios.delete(`http://localhost:3030/food/${food._id}`, {
+                withCredentials: true,
+            });
             console.log(response);
+            if (response.status === 200) {
+                getFood();
+            }
             // Call the delete food item function from backend using delete request
             //Maintain the states using redux and update the todos so that the restro homepage shows the deleted items
         }

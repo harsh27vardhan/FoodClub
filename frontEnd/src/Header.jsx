@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Header = () => {
     const [showOptions, setShowOptions] = useState(false);
-    const user = document.cookie.split("user=")[1];
+    const user = document.cookie.split("userRole=")[1];
     const navigate = useNavigate();
 
     const nowInMilliseconds = Date.now(); // Get milliseconds since the epoch

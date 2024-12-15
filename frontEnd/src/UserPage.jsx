@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import Header from "./Header";
 
 const UserPage = () => {
-    const [showOptions, setShowOptions] = useState(false);
+    // const [showOptions, setShowOptions] = useState(false);
     const navigate = useNavigate();
     function handleSearchSubmit(e) {
         e.preventDefault();

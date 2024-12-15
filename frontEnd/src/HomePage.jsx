@@ -137,7 +137,12 @@ const HomePage = () => {
     //         </div>
     //     </div>
     // )
-    return document.cookie.split("user=")[1] === "ADMIN" ? (<RestroHome />) : (<UserPage />);
+    // return document.cookie.split("user=")[1] === "ADMIN" ? (<RestroHome />) : (<UserPage />);
+    const userRole = document.cookie.split("userRole=")[1];
+    console.log(userRole);
+    return userRole === "CUSTOMER" ? (< UserPage />) : userRole === "ADMIN" ? (< RestroHome />) : (
+        <>You're an unauthorised user....</>
+    );
 }
 
 export default HomePage

@@ -58,7 +58,7 @@ function foodFilteration(food, payload) {
 exports.getFoodItem = (req, res) => {
   // console.log(req.cookie);
   // console.log(req.user);
-  res.cookie("user", req.user.role);
+  // res.cookie("user", req.user.role);
   const { restroId = null } = req.params;
   if (restroId) {
     Food.find({ restroId })
@@ -168,7 +168,7 @@ exports.updateFoodItem = (req, res) => {
 exports.deleteFoodItem = (req, res) => {
   const { id } = req.params;
   console.log(id);
-  Food.findByIdAndDelete(req.params)
+  Food.findByIdAndDelete(id)
     .then((food) => {
       return res.status(200).send({
         food,

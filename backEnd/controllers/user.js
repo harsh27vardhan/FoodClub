@@ -28,32 +28,39 @@ exports.logInUser = async (req, res) => {
   const { username, password } = req.body;
   try {
     await User.findOne({ username, password }).then((user) => {
+      console.log("console of user controller");
       console.log(user);
       if (!user || user.length === 0) {
-        res
+        return res
           .status(401)
           .send({ message: "User not found", error: "User not found" });
       }
       const token = setUser(user);
       const expires = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
-      res
-        .status(200)
-        .cookie("token", token, {
-          httpOnly: true,
-          secure: false,
-          sameSite: "Lax",
-          priority: "High",
-          maxAge: 7 * 24 * 60 * 60 * 1000,
-          expires,
-        })
-        .send({
-          token,
-          user, // res.user = user;
-          status: "success",
-          message: "User logged in successfully",
-        });
-      condole.log("Consoling the user....");
-      console.log(res);
+      res.cookie("token", token, {
+        httpOnly: true,
+        secure: false,
+        sameSite: "Lax",
+        priority: "High",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        expires,
+      });
+      res.cookie("userRole", user.role, {
+        httpOnly: false,
+        secure: false,
+        sameSite: "Lax",
+        priority: "High",
+        maxAge: 7 * 24 * 60 * 60 * 1000,
+        expires,
+      });
+      res.status(200).send({
+        token,
+        user, // res.user = user;
+        status: "success",
+        message: "User logged in successfully",
+      });
+      // console.log("Consoling the user....");
+      // console.log(res);
     });
   } catch (err) {
     return res
